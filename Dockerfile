@@ -11,12 +11,16 @@ EXPOSE 8000
 
 
 RUN python -m pip install --upgrade pip && \
+    apk add --update --no-cache postgresql-client && \
+    apk add --update --no-cache --virtual .tmp-build-deps \
+        build-base postgresql-dev musl-dev && \
     pip install pipenv && \
     if [ $DEV = "true"]; \
         then pipenv install --dev --system --deploy; \
     else pipenv install --dev --system --deploy; \
     fi && \
     rm -rf /tmp && \
+    apk del .tmp-build-deps && \
     adduser \
         --disabled-password \
         --no-create-home \
