@@ -14,7 +14,7 @@ RUN python -m pip install --upgrade pip && \
     pip install pipenv && \
     if [ $DEV = "true"]; \
         then pipenv install --dev --system --deploy; \
-    else pipenv install --system --deploy; \
+    else pipenv install --dev --system --deploy; \
     fi && \
     rm -rf /tmp && \
     adduser \
